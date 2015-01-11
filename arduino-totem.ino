@@ -65,9 +65,9 @@
  */
  void allWorkLedOn(int init, int number){
    int pin;
-   for (int i = 0; i < number; i++){
-     pin = firstWorkLed + i;
-     digitalWrite(pin, HIGH);
+   int lastLed = firstWorkLed + number;
+   for (int currentLed = firstWorkLed; currentLed < lastLed; currentLed++){
+     digitalWrite(currentLed, HIGH);
    }
  }
  
@@ -76,17 +76,23 @@
  * Setup the environment.
  */
  void setup(){
-   int pin;
-   for (int i = 0; i < workLedQuantity; i++){
-     pin = firstWorkLed + i;
-     pinMode(pin, OUTPUT);
-   }
+   setupPins();
    pinMode(restLed, OUTPUT);
    pinMode(systemLed, OUTPUT);
    allWorkLedOn(firstWorkLed, workLedQuantity);
    working = true;
  }
-
+ 
+ /**
+  * Init all pines 
+  */
+void setupPins(){
+   int pin;
+   for (int i = 0; i < workLedQuantity; i++){
+     pin = firstWorkLed + i;
+     pinMode(pin, OUTPUT);
+   }
+}
 
  /**
  * Main infinite loop.
